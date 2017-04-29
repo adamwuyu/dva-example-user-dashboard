@@ -1,4 +1,3 @@
-
 .normal {
   display: flex;
   flex-direction: column;
@@ -13,4 +12,24 @@
 .main {
   padding: 0 8px;
   flex: 1 0 auto;
+}
+
+.full_container{
+  height:100%;
+}
+
+.right_header_container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.right_header {
+  flex: 1;
+  height: 18px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 18px;
+  vertical-align: bottom;
 }

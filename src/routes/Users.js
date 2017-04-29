@@ -4,9 +4,9 @@ import styles from './Users.css';
 import UsersComponent from '../components/Users/Users';
 import MainLayout from '../components/MainLayout/MainLayout';
 
-function Users({ location }) {
+function Users({ location }) {  //location由框架代入，无显式定义
   return (
-    <MainLayout location={location}>
+    <MainLayout title="Hello world">
       <div className={styles.normal}>
         <UsersComponent />
       </div>
