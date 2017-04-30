@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router } from 'dva/router';
 
-import Extra from './routes/Extra.js';
+import Extra from './routes/data/Extra.js';
 
 const cached = {};
 function registerModel(app, model) {
@@ -33,12 +33,12 @@ function RouterConfig({ history, app }) {
       },
     },
     {
-      path: '/extra',
+      path: '/data-extra',
       name: 'extraPage',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           registerModel(app, require('./models/extra'));
-          cb(null, require('./routes/Extra'));
+          cb(null, require('./routes/data/Extra'));
         });
       },
     },

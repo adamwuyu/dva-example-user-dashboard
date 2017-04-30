@@ -1,7 +1,8 @@
-import * as extraService from '../services/extra';
+// import * as extraService from '../services/extra';
+import * as extraService from '../services/users';
 
 export default {
-  namespace: 'extra',
+  namespace: 'data-extra',
   state: {
     list: [],
     total: null,
@@ -44,7 +45,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        if (pathname === '/extra') {
+        if (pathname === '/data-extra') {
           dispatch({ type: 'fetch', payload: query });
         }
       });
