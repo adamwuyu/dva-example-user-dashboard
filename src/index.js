@@ -18,6 +18,8 @@ const app = dva({
 // 2. Plugins
 app.use(createLoading());
 
+// app.model(require('./models/extra'));
+
 // 3. Model
 // Moved to router.js
 
