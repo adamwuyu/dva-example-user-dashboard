@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Table, Pagination, Popconfirm, Button } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './Extra.css';
-import { PAGE_SIZE } from '../../constants';
+import { PAGE_SIZE } from '../../../constants';
 import ExtraModal from './ExtraModal';
 
 function Extra({ dispatch, list: dataSource, loading, total, page: current }) {

@@ -37,8 +37,8 @@ function RouterConfig({ history, app }) {
       name: 'extraPage',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
-          registerModel(app, require('./models/extra'));
-          cb(null, require('./routes/data/extra/index'));
+          registerModel(app, require('./models/data/extra/'));
+          cb(null, require('./routes/data/extra/'));
         });
       },
     },
