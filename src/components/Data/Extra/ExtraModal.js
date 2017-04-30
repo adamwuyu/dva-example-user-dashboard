@@ -38,7 +38,7 @@ class ExtraEditModal extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { name, email, website } = this.props.record;
+    const { name, targetTypeName, targetName } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -50,7 +50,7 @@ class ExtraEditModal extends Component {
           { children }
         </span>
         <Modal
-          title="Edit Extra"
+          title="编辑额外对象"
           visible={this.state.visible}
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
@@ -58,7 +58,7 @@ class ExtraEditModal extends Component {
           <Form horizontal onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
-              label="Name"
+              label="额外对象名称"
             >
               {
                 getFieldDecorator('name', {
@@ -68,21 +68,21 @@ class ExtraEditModal extends Component {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="Email"
+              label="所属类型"
             >
               {
-                getFieldDecorator('email', {
-                  initialValue: email,
+                getFieldDecorator('targetTypeName', {
+                  initialValue: targetTypeName,
                 })(<Input />)
               }
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="Website"
+              label="所属对象"
             >
               {
-                getFieldDecorator('website', {
-                  initialValue: website,
+                getFieldDecorator('targetName', {
+                  initialValue: targetName,
                 })(<Input />)
               }
             </FormItem>

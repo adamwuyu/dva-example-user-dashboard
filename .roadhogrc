@@ -12,7 +12,8 @@
   "autoprefixer": null,
   "proxy": {
     "/api": {
-      "target": "http://jsonplaceholder.typicode.com/",
+      //"target": "http://jsonplaceholder.typicode.com/",
+      "target": "http://databackground.xincheng.tv/index.php",
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }
     }

@@ -37,23 +37,28 @@ function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
 
   const columns = [
     {
-      title: 'Name',
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: 50,
+    },
+    {
+      title: '额外对象名称',
       dataIndex: 'name',
       key: 'name',
-      render: text => <a href="">{text}</a>,
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
+      title: '所属类型',
+      dataIndex: 'targetTypeName',
+      key: 'targetTypeName',
     },
     {
-      title: 'Website',
-      dataIndex: 'website',
-      key: 'website',
+      title: '所属对象',
+      dataIndex: 'targetName',
+      key: 'targetName',
     },
     {
-      title: 'Operation',
+      title: '编辑',
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>

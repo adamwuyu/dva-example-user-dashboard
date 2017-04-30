@@ -1,5 +1,5 @@
-// import * as extraService from '../services/extra';
-import * as extraService from '../../../services/users';
+import * as extraService from '../../../services/extra';
+// import * as extraService from '../../../services/users';
 
 export default {
   namespace: 'data/extra',

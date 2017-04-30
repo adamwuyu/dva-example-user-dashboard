@@ -2,12 +2,11 @@ import request from '../utils/request';
 import {PAGE_SIZE} from '../constants';
 
 export function fetch({page}) {
-  return request(`/api/users?_page=${page}&_limit=${PAGE_SIZE}`);
+  // return request(`/api/users?_page=${page}&_limit=${PAGE_SIZE}`);
 
-  // return request('/bk/extraList', {
-  //   method: 'POST',
-  //   body: JSON.stringify({page: 1, limit: 10}),
-  // });
+  return request(`/api/bk/extraList?page=${page}&limit=${PAGE_SIZE}`, {
+    method: 'POST',
+  });
 }
 
 export function remove(id) {
