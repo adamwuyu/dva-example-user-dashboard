@@ -9,28 +9,28 @@ import ExtraModal from './ExtraModal';
 function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
   function deleteHandler(id) {
     dispatch({
-      type: 'data-extra/remove',
+      type: 'data/extra/remove',
       payload: id,
     });
   }
 
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
-      pathname: '/data-extra',
+      pathname: '/data/extra',
       query: { page },
     }));
   }
 
   function editHandler(id, values) {
     dispatch({
-      type: 'data-extra/patch',
+      type: 'data/extra/patch',
       payload: { id, values },
     });
   }
 
   function createHandler(values) {
     dispatch({
-      type: 'data-extra/create',
+      type: 'data/extra/create',
       payload: values,
     });
   }
@@ -96,9 +96,9 @@ function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
 }
 
 function mapStateToProps(state) {
-  const { list, total, page } = state['data-extra'];
+  const { list, total, page } = state['data/extra'];
   return {
-    loading: state.loading.models.extra,
+    loading: state.loading.models['data/extra'],
     list,
     total,
     page,

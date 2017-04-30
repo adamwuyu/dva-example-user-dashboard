@@ -39,7 +39,7 @@ function MainLayout({children, title}) {
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link to="/extra-list" className={styles.nav_text}>
+            <Link to="/data/extra" className={styles.nav_text}>
               <Icon type="user"/>
               <span>0-1额外对象列表</span>
             </Link>

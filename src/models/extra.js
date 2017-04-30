@@ -2,7 +2,7 @@
 import * as extraService from '../services/users';
 
 export default {
-  namespace: 'data-extra',
+  namespace: 'data/extra',
   state: {
     list: [],
     total: null,
@@ -38,14 +38,14 @@ export default {
       yield put({ type: 'reload' });
     },
     *reload(action, { put, select }) {
-      const page = yield select(state => state.extra.page);
+      const page = yield select(state => state['data/extra'].page);
       yield put({ type: 'fetch', payload: { page } });
     },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
-        if (pathname === '/data-extra') {
+        if (pathname === '/data/extra') {
           dispatch({ type: 'fetch', payload: query });
         }
       });
