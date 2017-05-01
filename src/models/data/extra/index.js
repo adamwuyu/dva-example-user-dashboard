@@ -1,6 +1,5 @@
-import * as extraService from '../../../services/extra';
-import * as dataService from '../../../services/data';
-// import * as extraService from '../../../services/users';
+import * as extraService from '../../../services/extraService';
+import * as dataService from '../../../services/shareService';
 
 export default {
   namespace: 'data/extra',
@@ -8,16 +7,33 @@ export default {
     list: [],
     total: null,
     page: null,
-    targetOption0: dataService.getTargetOptions0(),
   },
   reducers: {
-    save(state, { payload: { data: list, total, page } }) {
-      return { ...state, list, total, page };
+    saveTargetOptions(state, {payload}) {
+      const newState = state
+      newState[`targetOptions${payload.level}`] = payload.data
+      return {...newState};
+    },
+    save(state, {payload: {data: list, total, page}}) {
+      return {...state, list, total, page};
     },
   },
   effects: {
-    *fetch({ payload: { page = 1 } }, { call, put }) {
-      const { data, headers } = yield call(extraService.fetch, { page });
+    *getIndustry({payload}, {call, put}) {
+      const {data, headers} = yield call(
+        extraService.loadIndustryOptions,
+        payload.id,
+      );
+      yield put({
+        type: 'saveTargetOptions',
+        payload: {
+          level: payload.level,
+          data,
+        },
+      });
+    },
+    *fetch({payload: {page = 1}}, {call, put}) {
+      const {data, headers} = yield call(extraService.fetch, {page});
       yield put({
         type: 'save',
         payload: {
@@ -27,30 +43,32 @@ export default {
         },
       });
     },
-    *remove({ payload: id }, { call, put }) {
+    *remove({payload: id}, {call, put}) {
       yield call(extraService.remove, id);
-      yield put({ type: 'reload' });
+      yield put({type: 'reload'});
     },
-    *patch({ payload: { id, values } }, { call, put }) {
+    *patch({payload: {id, values}}, {call, put}) {
       yield call(extraService.patch, id, values);
-      yield put({ type: 'reload' });
+      yield put({type: 'reload'});
     },
-    *create({ payload: values }, { call, put }) {
+    *create({payload: values}, {call, put}) {
       yield call(extraService.create, values);
-      yield put({ type: 'reload' });
+      yield put({type: 'reload'});
     },
-    *reload(action, { put, select }) {
+    *reload(action, {put, select}) {
       const page = yield select(state => state['data/extra'].page);
-      yield put({ type: 'fetch', payload: { page } });
+      yield put({type: 'fetch', payload: {page}});
     },
   },
   subscriptions: {
-    setup({ dispatch, history }) {
-      return history.listen(({ pathname, query }) => {
+    setup({dispatch, history}) {
+      return history.listen(({pathname, query}) => {
         if (pathname === '/data/extra') {
-          dispatch({ type: 'fetch', payload: query });
+          //额外对象列表数据
+          dispatch({type: 'fetch', payload: query});
         }
       });
     },
   },
 };
+

@@ -1,4 +1,4 @@
-import * as usersService from '../services/users';
+import * as usersService from '../services/userService';
 
 export default {
   namespace: 'users',

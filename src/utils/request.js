@@ -33,11 +33,24 @@ export default async function request(url, _options) {
   checkStatus(response);
 
   const data = await response.json();
-  const list = data.data.list;
-  const ret = {
-    data: list,
-    headers: {},
-  };
+  let ret
+  if (data.ret === 1) {
+    let list
+    if (data.data.list) {
+      list = data.data.list
+    } else {
+      list = data.data
+    }
+
+    ret = {
+      data: list,
+      headers: {},
+    };
+  } else {
+    const error = new Error(data.msg);
+    throw error;
+  }
+
   //因为返回的是对象，不是数组，所以用明文传递记录总数
   ret.headers['x-total-count'] = data.data.count;
   // if (response.headers.get('x-total-count')) {

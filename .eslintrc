@@ -8,6 +8,7 @@
     "react/jsx-space-before-closing": [0],
     "spaced-comment": [0],
     "semi": [0],
+    "no-underscore-dangle": [0],
 
     "no-unused-vars": [1],
     "generator-star-spacing": [0],

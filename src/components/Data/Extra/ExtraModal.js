@@ -8,23 +8,20 @@ class ExtraEditModal extends Component {
 
   constructor(props) {
     super(props);
+    // this.props.getIndustry(0)
+
     this.state = {
       visible: false,
     };
   }
 
-  showModelHandler = (e) => {
-    if (e) e.stopPropagation();
-    this.setState({
-      visible: true,
-    });
-  };
+  onTarget0Change = (value) => {
+    // this.props.load
+  }
 
-  hideModelHandler = () => {
-    this.setState({
-      visible: false,
-    });
-  };
+  onTarget1Change = (value) => {
+    // this.props.load
+  }
 
   okHandler = () => {
     const {onOk} = this.props;
@@ -36,8 +33,21 @@ class ExtraEditModal extends Component {
     });
   };
 
+  hideModelHandler = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+  showModelHandler = (e) => {
+    if (e) e.stopPropagation();
+    this.setState({
+      visible: true,
+    });
+  };
+
   render() {
-    const {children} = this.props;
+    const {children, targetOptions0, targetOptions1} = this.props;
     const {getFieldDecorator} = this.props.form;
     const {name, targetTypeName, targetName} = this.props.record;
     const formItemLayout = {
@@ -70,10 +80,7 @@ class ExtraEditModal extends Component {
                 })(<Input />)
               }
             </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="选择类型"
-            >
+            <FormItem {...formItemLayout} label="选择类型">
               {
                 getFieldDecorator('target0', {
                   initialValue: name,
@@ -81,9 +88,30 @@ class ExtraEditModal extends Component {
                     required: true, message: '选择类型',
                   }],
                 })(
-                  <Select showSearch placeholder="请选择类型">
-                    <Option value="male">male</Option>
-                    <Option value="female">female</Option>
+                  <Select
+                    showSearch
+                    placeholder="请选择类型"
+                    onChange={this.onTarget0Change.bind(this)}
+                  >
+                    {targetOptions0}
+                  </Select>,
+                )
+              }
+            </FormItem>
+            <FormItem {...formItemLayout} label="一级分类">
+              {
+                getFieldDecorator('target1', {
+                  initialValue: name,
+                  rules: [{
+                    required: true, message: '请选择一级分类',
+                  }],
+                })(
+                  <Select
+                    showSearch
+                    placeholder="请选择一级分类"
+                    onChange={this.onTarget1Change.bind(this)}
+                  >
+                    {targetOptions1}
                   </Select>,
                 )
               }

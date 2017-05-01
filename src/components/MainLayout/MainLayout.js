@@ -62,6 +62,12 @@ function MainLayout({children, title}) {
               <span>0-4数据名称添加</span>
             </Link>
           </Menu.Item>
+          <Menu.Item key="users">
+            <Link to="/users" className={styles.nav_text}>
+              <Icon type="user"/>
+              <span>示例</span>
+            </Link>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout>

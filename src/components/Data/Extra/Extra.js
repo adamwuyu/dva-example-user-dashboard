@@ -1,12 +1,16 @@
 import React from 'react';
-import { connect } from 'dva';
-import { Table, Pagination, Popconfirm, Button } from 'antd';
-import { routerRedux } from 'dva/router';
+import {connect} from 'dva';
+import {Table, Pagination, Popconfirm, Button} from 'antd';
+import {routerRedux} from 'dva/router';
 import styles from './Extra.css';
-import { PAGE_SIZE } from '../../../constants';
+import {PAGE_SIZE} from '../../../constants';
 import ExtraModal from './ExtraModal';
 
-function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
+function Extra({
+                 dispatch, list: dataSource, loading, total,
+                 page: current, shareState,
+               }) {
+  console.log(shareState)
   function deleteHandler(id) {
     dispatch({
       type: 'data/extra/remove',
@@ -17,14 +21,14 @@ function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
   function pageChangeHandler(page) {
     dispatch(routerRedux.push({
       pathname: '/data/extra',
-      query: { page },
+      query: {page},
     }));
   }
 
   function editHandler(id, values) {
     dispatch({
       type: 'data/extra/patch',
-      payload: { id, values },
+      payload: {id, values},
     });
   }
 
@@ -62,7 +66,16 @@ function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>
-          <ExtraModal record={record} onOk={editHandler.bind(null, record.id)}>
+          <ExtraModal
+            record={record}
+            onOk={editHandler.bind(null, record.id)}
+            targetOptions0={shareState.targetOptions0}
+            targetOptions1={shareState.targetOptions1}
+            getIndustry={id => dispatch({
+              type: 'data/extra/getIndustry',
+              id,
+            })}
+          >
             <a>Edit</a>
           </ExtraModal>
           <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, record.id)}>
@@ -77,7 +90,16 @@ function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
     <div className={styles.normal}>
       <div>
         <div className={styles.create}>
-          <ExtraModal record={{}} onOk={createHandler}>
+          <ExtraModal
+            record={{}}
+            onOk={createHandler}
+            targetOptions0={shareState.targetOptions0}
+            targetOptions1={shareState.targetOptions1}
+            getIndustry={id => dispatch({
+              type: 'data/extra/getIndustry',
+              id,
+            })}
+          >
             <Button type="primary">添加额外对象</Button>
           </ExtraModal>
         </div>
@@ -101,9 +123,10 @@ function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
 }
 
 function mapStateToProps(state) {
-  const { list, total, page } = state['data/extra'];
+  const {list, total, page} = state['data/extra'];
   return {
     loading: state.loading.models['data/extra'],
+    shareState: state.share,
     list,
     total,
     page,
