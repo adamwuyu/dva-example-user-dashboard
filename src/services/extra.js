@@ -1,9 +1,9 @@
+import React from 'react'
 import request from '../utils/request';
 import {PAGE_SIZE} from '../constants';
 
 export function fetch({page}) {
   // return request(`/api/users?_page=${page}&_limit=${PAGE_SIZE}`);
-
   return request(`/api/bk/extraList?page=${page}&limit=${PAGE_SIZE}`, {
     method: 'POST',
   });
@@ -16,9 +16,13 @@ export function remove(id) {
 }
 
 export function patch(id, values) {
-  return request(`/bk/editExtra?extra_id=${id}`, {
-    method: 'PATCH',
-    body: JSON.stringify(values),
+  // values.name='adam';
+  // values.target_type = 4;
+  // values.target_id = 12;
+
+  return request(`/api/bk/editExtra?extra_id=${id}`, {
+    method: 'POST',
+    body: values,
   });
 }
 

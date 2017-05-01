@@ -1,4 +1,5 @@
 import * as extraService from '../../../services/extra';
+import * as dataService from '../../../services/data';
 // import * as extraService from '../../../services/users';
 
 export default {
@@ -7,6 +8,7 @@ export default {
     list: [],
     total: null,
     page: null,
+    targetOption0: dataService.getTargetOptions0(),
   },
   reducers: {
     save(state, { payload: { data: list, total, page } }) {

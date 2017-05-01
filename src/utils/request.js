@@ -17,7 +17,17 @@ function checkStatus(response) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default async function request(url, options) {
+export default async function request(url, _options) {
+  const options = _options
+  if (options.body) {
+    options.body = Object.keys(options.body).map((key) => {
+      return `${encodeURIComponent(key)}=${encodeURIComponent(options.body[key])}`;
+    }).join('&');
+    if (!options.headers) {
+      options.headers = {};
+    }
+    options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  }
   const response = await fetch(url, options);
 
   checkStatus(response);

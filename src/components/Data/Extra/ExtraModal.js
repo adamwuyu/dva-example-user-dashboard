@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Modal, Form, Input } from 'antd';
+import React, {Component} from 'react';
+import {Modal, Form, Input, Select} from 'antd';
 
+const Option = Select.Option
 const FormItem = Form.Item;
 
 class ExtraEditModal extends Component {
@@ -26,7 +27,7 @@ class ExtraEditModal extends Component {
   };
 
   okHandler = () => {
-    const { onOk } = this.props;
+    const {onOk} = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
         onOk(values);
@@ -36,12 +37,12 @@ class ExtraEditModal extends Component {
   };
 
   render() {
-    const { children } = this.props;
-    const { getFieldDecorator } = this.props.form;
-    const { name, targetTypeName, targetName } = this.props.record;
+    const {children} = this.props;
+    const {getFieldDecorator} = this.props.form;
+    const {name, targetTypeName, targetName} = this.props.record;
     const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 14 },
+      labelCol: {span: 6},
+      wrapperCol: {span: 14},
     };
 
     return (
@@ -55,7 +56,7 @@ class ExtraEditModal extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form layout="horizontal" onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="额外对象名称"
@@ -63,7 +64,28 @@ class ExtraEditModal extends Component {
               {
                 getFieldDecorator('name', {
                   initialValue: name,
+                  rules: [{
+                    required: true, message: '请输入对象名称',
+                  }],
                 })(<Input />)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="选择类型"
+            >
+              {
+                getFieldDecorator('target0', {
+                  initialValue: name,
+                  rules: [{
+                    required: true, message: '选择类型',
+                  }],
+                })(
+                  <Select showSearch placeholder="请选择类型">
+                    <Option value="male">male</Option>
+                    <Option value="female">female</Option>
+                  </Select>,
+                )
               }
             </FormItem>
             <FormItem

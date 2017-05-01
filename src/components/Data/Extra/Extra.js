@@ -78,7 +78,7 @@ function Extra({ dispatch, list: dataSource, loading, total, page: current }) {
       <div>
         <div className={styles.create}>
           <ExtraModal record={{}} onOk={createHandler}>
-            <Button type="primary">Create Extra</Button>
+            <Button type="primary">添加额外对象</Button>
           </ExtraModal>
         </div>
         <Table
