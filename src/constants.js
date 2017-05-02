@@ -16,6 +16,6 @@ export const TARGET0 = [
   {key: '14', value: '通用类', subs: [3]},
 ]
 
-export const TARGET_OPTIONS_0 = TARGET0.map(item => (
+export const TARGET_OPTION_0 = TARGET0.map(item => (
   <Option key={item.key} value={item.key}>{item.value}</Option>
 ))

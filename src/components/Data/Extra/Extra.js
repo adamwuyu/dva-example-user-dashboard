@@ -10,7 +10,6 @@ function Extra({
                  dispatch, list: dataSource, loading, total,
                  page: current, shareState,
                }) {
-  console.log(shareState)
   function deleteHandler(id) {
     dispatch({
       type: 'data/extra/remove',
@@ -69,11 +68,13 @@ function Extra({
           <ExtraModal
             record={record}
             onOk={editHandler.bind(null, record.id)}
+            target0={shareState.target0}
             targetOptions0={shareState.targetOptions0}
             targetOptions1={shareState.targetOptions1}
+            targetOptions2={shareState.targetOptions1}
             getIndustry={id => dispatch({
-              type: 'data/extra/getIndustry',
-              id,
+              type: 'share/getIndustry',
+              payload: {level: 2, id},
             })}
           >
             <a>Edit</a>
@@ -93,11 +94,14 @@ function Extra({
           <ExtraModal
             record={{}}
             onOk={createHandler}
+            target0={shareState.target0}
+            target1={shareState.target1}
             targetOptions0={shareState.targetOptions0}
             targetOptions1={shareState.targetOptions1}
+            targetOptions2={shareState.targetOptions1}
             getIndustry={id => dispatch({
-              type: 'data/extra/getIndustry',
-              id,
+              type: 'share/getIndustry',
+              payload: {level: 2, id},
             })}
           >
             <Button type="primary">添加额外对象</Button>

@@ -8,18 +8,41 @@ class ExtraEditModal extends Component {
 
   constructor(props) {
     super(props);
-    // this.props.getIndustry(0)
 
     this.state = {
       visible: false,
+      showTarget1: false,
+      showTarget2: false,
     };
   }
 
   onTarget0Change = (value) => {
-    // this.props.load
+    const {target0} = this.props
+    const currentTarget0 = target0.filter(
+      (item) => {
+        return item.key === value
+      })
+    if (currentTarget0.length < 1) {
+      throw new Error('未定义此类型');
+    } else {
+      this.setState({showTarget1: currentTarget0[0].subs.indexOf(1) !== -1})
+    }
   }
 
   onTarget1Change = (value) => {
+    // const {target1} = this.props
+    // const currentTarget = target1.filter(
+    //   (item) => {
+    //     return item.key === value
+    //   })
+    // if (currentTarget.length < 1) {
+    //   throw new Error('未定义此类型');
+    // } else {
+    //   this.setState({showTarget1: currentTarget[0].subs.indexOf(1) !== -1})
+    // }
+  }
+
+  onTarget2Change = (value) => {
     // this.props.load
   }
 
@@ -47,7 +70,13 @@ class ExtraEditModal extends Component {
   };
 
   render() {
-    const {children, targetOptions0, targetOptions1} = this.props;
+    const {
+      children,
+      targetOptions0,
+      targetOptions1,
+      targetOptions2,
+      targetOptions3,
+    } = this.props;
     const {getFieldDecorator} = this.props.form;
     const {name, targetTypeName, targetName} = this.props.record;
     const formItemLayout = {
@@ -98,7 +127,11 @@ class ExtraEditModal extends Component {
                 )
               }
             </FormItem>
-            <FormItem {...formItemLayout} label="一级分类">
+            <FormItem
+              {...formItemLayout}
+              label="一级分类"
+              style={{display: this.state.showTarget1 ? '' : 'none'}}
+            >
               {
                 getFieldDecorator('target1', {
                   initialValue: name,
@@ -112,6 +145,28 @@ class ExtraEditModal extends Component {
                     onChange={this.onTarget1Change.bind(this)}
                   >
                     {targetOptions1}
+                  </Select>,
+                )
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="二级分类"
+              style={{display: this.state.showTarget2 ? '' : 'none'}}
+            >
+              {
+                getFieldDecorator('target2', {
+                  initialValue: name,
+                  rules: [{
+                    required: true, message: '请选择二级分类',
+                  }],
+                })(
+                  <Select
+                    showSearch
+                    placeholder="请选择二级分类"
+                    onChange={this.onTarget2Change.bind(this)}
+                  >
+                    {targetOptions2}
                   </Select>,
                 )
               }

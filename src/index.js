@@ -3,6 +3,7 @@ import dva from 'dva';
 import {browserHistory} from 'dva/router';
 import createLoading from 'dva-loading';
 import {message, Select} from 'antd';
+import {TARGET0} from './constants'
 import * as shareService from './services/shareService';
 import './index.html';
 import './index.css';
@@ -35,6 +36,7 @@ app.start('#root');
 app.model({
   namespace: 'share',
   state: {
+    target0: TARGET0,
     targetOptions0: shareService.getTargetOptions0(),
   },
   reducers: {
@@ -43,8 +45,6 @@ app.model({
       const result = payload.data.map(item => (
         <Option key={item.in_id} value={`${item.in_id}`}>{item.in_cn}</Option>
       ))
-
-      console.log(result)
 
       const newState = state
       newState[`targetOptions${payload.level}`] = result

@@ -19,19 +19,6 @@ export default {
     },
   },
   effects: {
-    *getIndustry({payload}, {call, put}) {
-      const {data, headers} = yield call(
-        extraService.loadIndustryOptions,
-        payload.id,
-      );
-      yield put({
-        type: 'saveTargetOptions',
-        payload: {
-          level: payload.level,
-          data,
-        },
-      });
-    },
     *fetch({payload: {page = 1}}, {call, put}) {
       const {data, headers} = yield call(extraService.fetch, {page});
       yield put({
